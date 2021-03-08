@@ -3,6 +3,7 @@ package com.mrz.apiwork.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.mrz.apiwork.R
 import com.mrz.apiwork.model.Post
@@ -12,7 +13,14 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
 
     private var myList = emptyList<Post>()
 
-    inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)
+    inner class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+        init {
+            itemView.setOnClickListener {v: View ->
+                val position: Int = adapterPosition
+                Toast.makeText(itemView.context, myList[position].title, Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.row_layout, parent, false))
