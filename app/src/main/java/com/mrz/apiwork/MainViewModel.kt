@@ -13,6 +13,7 @@ class MainViewModel(private var repository: Repository) : ViewModel() {
     var myResponse: MutableLiveData<Response<Post>> = MutableLiveData()
     val myCustomPosts: MutableLiveData<Response<List<Post>>> = MutableLiveData()
 
+    //Отправка поста
     fun pushPost(post: Post) {
         viewModelScope.launch {
             val response = repository.pushPost(post)
@@ -20,6 +21,7 @@ class MainViewModel(private var repository: Repository) : ViewModel() {
         }
     }
 
+    //Получение одиночного элемента
     fun getPost() {
         viewModelScope.launch {
             val response = repository.getPost()
@@ -27,6 +29,7 @@ class MainViewModel(private var repository: Repository) : ViewModel() {
         }
     }
 
+    //получение данных для ресайклера с сортировкой
     fun getCustomPost(userId: Int, sort: String, order: String) {
         viewModelScope.launch {
             val response = repository.getCustomPosts(userId, sort, order)

@@ -46,16 +46,21 @@ class MyAdapter: RecyclerView.Adapter<MyAdapter.MyViewHolder>() {
         holder.itemView.id_txt.text = myList[position].id.toString()
         holder.itemView.title_txt.text = myList[position].title
         holder.itemView.body_txt.text = myList[position].body
+
         //Библиотека пикассо позволяет быстро получать картинки из этих ваших тырнетиков
         Picasso.get().load("https://img2.wtftime.ru/store/2020/11/19/2a88qnr7.jpg").into(holder.itemView.ivrow); //Вот здесь будет твой элемент, за место айдишника ivrow
+
         //По нажатию на clrow (самому элементу списка), выполняется действие
         holder.itemView.clrow.setOnClickListener {
+
             //Контекст - хрень, чтоб работал интент
             val context=holder.itemView.clrow.context
             val intent = Intent( context, SecondActivity::class.java)
+
             //Сохранение айдишника нажатого элемента и тайтла
             intent.putExtra("id",myList[position].id.toString())
             intent.putExtra("desc", myList[position].title)
+
             //старт активити
             context.startActivity(intent)
         }

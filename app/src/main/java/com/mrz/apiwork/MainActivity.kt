@@ -22,13 +22,16 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        //Функция ниже, не трогай
         setupRecyclerView()
 
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
+        //Кликни с ctrl на функцию getCustomPost, поймешь
         viewModel.getCustomPost(2, "id", "desc")
+        //myCustomPosts - полученный список
         viewModel.myCustomPosts.observe(this, Observer { response ->
             if (response.isSuccessful){
                 response.body()?.let { myAdapter.setData(it) }
@@ -37,14 +40,17 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
+        //Отправка данных на серв, сначала грузишь их в этот список, потом отправдяй
         val myPost = Post(2,2, "my name", "Android")
         viewModel.pushPost(myPost)
         viewModel.myResponse.observe(this, Observer { response ->
             if (response.isSuccessful){
+                //Проверка через консоль, если выдало код 201, значит все хорошо
                 Log.d("Main", response.body().toString())
                 Log.d("Main", response.code().toString())
                 Log.d("Main", response.message())
             } else {
+                //В случае, если все не хорошо, выдаст тост
                 Toast.makeText(this, response.code(), Toast.LENGTH_SHORT).show()
             }
         })
