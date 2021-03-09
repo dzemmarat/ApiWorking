@@ -9,9 +9,11 @@ import retrofit2.http.Query
 
 interface SimpleApi {
 
+    //Получает простой элемент
     @GET("posts/1")
     suspend fun getPost(): Response<Post>
 
+    //получает список элементов
     @GET("posts")
     suspend fun getCustomPost(
             @Query("userId") userId: Int,
@@ -19,6 +21,7 @@ interface SimpleApi {
             @Query("_order") order: String
     ): Response<List<Post>>
 
+    //Запрос В АПИ, а не из него, всегда заполняется только так
     @POST("posts")
     suspend fun pushPost(
             @Body post: Post
